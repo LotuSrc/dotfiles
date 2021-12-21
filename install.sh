@@ -85,7 +85,8 @@ else
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
-echo "[06] cp conf [.zshrc|config.lua]"
+echo "[06] cp conf [.zshrc|.p10k.zsh|config.lua]"
 cp -n ~/dotfiles/conf/.zshrc ~
+cp -n ~/dotfiles/conf/.p10k.zsh ~
 cp -n ~/dotfiles/conf/config.lua ~/.config/lvim/
 echo "[07] done"
