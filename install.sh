@@ -36,7 +36,7 @@ else
   then
     sudo yum install -y zsh
     sudo yum install -y ninja-build libtool autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch gettext curl
-    if [[ $PROXY = 'Y']]
+    if [[ $PROXY = 'Y' ]]
     then
       git clone --quiet $PROXY_URL/https://github.com/neovim/neovim
     else
@@ -48,7 +48,7 @@ else
   else
     sudo apt-get install -y -qq zsh
     sudo apt-get install -y -qq ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-    if [[ $PROXY = 'Y']]
+    if [[ $PROXY = 'Y' ]]
     then
       git clone --quiet $PROXY_URL/https://github.com/neovim/neovim 
     else
