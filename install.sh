@@ -25,7 +25,6 @@ then
   brew install zsh
   brew install neovim
 else
-then
   sudo echo -e "\c"
   if [[ $? = 1 ]]
   then
