@@ -68,7 +68,7 @@ then
   git clone --quiet $PROXY_URL/https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   git clone --quiet $PROXY_URL/https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   echo "[04] install lunarvim"
-  sh <(curl -s $PROXY_URL/https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+  sh -c "$(curl -s $PROXY_URL/https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
   echo "[05] install powerlevel10k theme"
   git clone --depth=1 $PROXY_URL/https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   
@@ -79,7 +79,7 @@ else
   git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   echo "[04] install lunarvim"
-  sh <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+  sh -c "$(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
   echo "[05] install powerlevel10k theme"
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
