@@ -39,21 +39,21 @@ else
     sudo dnf install -y ninja-build libtool autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch gettext curl
     if [[ $PROXY = 'Y' ]]
     then
-      git clone --quiet $PROXY_URL/https://github.com/neovim/neovim
+      git clone -b stable --depth=1 --quiet $PROXY_URL/https://github.com/neovim/neovim
     else
-      git clone --quiet https://github.com/neovim/neovim
+      git clone -b stable --depth=1 --quiet https://github.com/neovim/neovim
     fi
-    cd neovim && git checkout stable && make
-    sudo make install
-    cd .. && rm -rf neovim
+    make CMAKE_BUILD_TYPE=Release -C neovim 2>&1 >/dev/null
+    sudo make install -C neovim 2>&1 >/dev/null
+    rm -rf neovim
   else
     sudo apt-get install -y -qq zsh
     sudo apt-get install -y -qq ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
     if [[ $PROXY = 'Y' ]]
     then
-      git clone -b stable --quiet $PROXY_URL/https://github.com/neovim/neovim 
+      git clone -b stable --depth=1 --quiet $PROXY_URL/https://github.com/neovim/neovim 
     else
-      git clone -b stable --quiet https://github.com/neovim/neovim
+      git clone -b stable --depth=1 --quiet https://github.com/neovim/neovim
     fi
     make CMAKE_BUILD_TYPE=Release -C neovim 2>&1 >/dev/null
 #     cd neovim && git checkout stable && make
