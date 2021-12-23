@@ -1,9 +1,9 @@
 #/bin/bash
 #set -x
 
-OS=macos
-MIRROR=Y
-PROXY=Y
+OS=centos
+MIRROR=N
+PROXY=N
 PROXY_URL=https://ghproxy.com
 
 # 安装zsh和neovim
@@ -24,6 +24,7 @@ then
   echo "[01] install [zsh|neovim]"
   brew install zsh
   brew install neovim
+  fi
 else
   sudo echo -e "\c"
   if [[ $? = 1 ]]
@@ -34,8 +35,8 @@ else
   echo "[01] install [zsh|neovim]"
   if [[ $OS = 'centos' ]]
   then
-    sudo yum install -y zsh
-    sudo yum install -y ninja-build libtool autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch gettext curl
+    sudo dnf install -y zsh
+    sudo dnf install -y ninja-build libtool autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch gettext curl
     if [[ $PROXY = 'Y' ]]
     then
       git clone --quiet $PROXY_URL/https://github.com/neovim/neovim
@@ -50,13 +51,14 @@ else
     sudo apt-get install -y -qq ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
     if [[ $PROXY = 'Y' ]]
     then
-      git clone --quiet $PROXY_URL/https://github.com/neovim/neovim 
+      git clone -b stable --quiet $PROXY_URL/https://github.com/neovim/neovim 
     else
-      git clone --quiet https://github.com/neovim/neovim
+      git clone -b stable --quiet https://github.com/neovim/neovim
     fi
-    cd neovim && git checkout stable && make
-    sudo make install
-    cd .. && rm -rf neovim
+    make CMAKE_BUILD_TYPE=Release -C neovim 2>&1 >/dev/null
+#     cd neovim && git checkout stable && make
+    sudo make install -C neovim 2>&1 >/dev/null
+    rm -rf neovim
   fi
 fi
 
