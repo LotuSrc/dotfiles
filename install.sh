@@ -50,8 +50,6 @@ function setup_homebrew() {
     /bin/bash brew-install/install.sh
     rm -rf brew-install
   fi
- 
-  if 
 }
 
 
@@ -89,7 +87,7 @@ then
 else
   echo "unrecognized os: $OS"
   exit 1
-
+fi
 
 
 
