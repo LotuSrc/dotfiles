@@ -95,6 +95,12 @@ echo "Installing glibc"
 brew install -q glibc
 echo "Installing zsh"
 brew install -q zsh
+# 非root用户设置zsh为默认shell
+test -r ~/.bash_profile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.bash_profile
+test -r ~/.profile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.profile
+test -r ~/.zprofile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.zprofile
+
+
 echo "Installing ohmyzsh"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "Installing plugin: zsh-autosuggestions"
