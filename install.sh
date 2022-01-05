@@ -55,7 +55,7 @@ function setup_homebrew() {
 
 if [[ $OS =~ 'Darwin' ]]
 then
-  echo "install homebrew"
+  echo "Installing homebrew"
   export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
   export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
@@ -69,7 +69,7 @@ then
 
 elif [[ $OS =~ 'Linux' ]]
 then
-  echo "install linuxbrew"
+  echo "Installing linuxbrew"
   export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
   export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
@@ -85,40 +85,58 @@ then
   test -r ~/.zprofile && echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"' >> ~/.zprofile
 
 else
-  echo "unrecognized os: $OS"
+  echo "Unrecognized os: $OS"
   exit 1
 fi
 
 
-
-
-echo "install zsh"
+# 防止centos本身glibc版本过低
+echo "Installing glibc"
+brew install -q glibc
+echo "Installing zsh"
 brew install -q zsh
-echo "install ohmyzsh"
+echo "Installing ohmyzsh"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-echo "plugin install zsh-autosuggestions"
+echo "Installing plugin: zsh-autosuggestions"
 git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-echo "plugin install zsh-syntax-highlighting"
+echo "Installing plugin: zsh-syntax-highlighting"
 git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-echo "plugin install autojump"
+echo "Installing plugin: autojump"
 brew install -q autojump
-echo "theme install powerlevel10k"
+echo "Installing theme: powerlevel10k"
 git clone --quiet --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 
 
 
-echo "install neovim"
+echo "Installing neovim"
 brew install -q neovim
-echo "install lunarvim dependencies [npm|node|cargo]"
-brew install -q node
+echo "Installing nvm"
+brew install -q nvm
+mkdir $HOME/.nvm
+export NVM_DIR="$HOME/.nvm"
+eval "[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"" # This loads nvm
+eval "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"" # This loads nvm bash_completion
+test -r ~/.bash_profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bash_profile
+test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.bash_profile
+test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.bash_profile
+test -r ~/.profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.profile
+test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.profile
+test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.profile
+test -r ~/.zprofile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zprofile
+test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.zprofile
+test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.zprofile
+echo "Installing dependencies for lunarvim: npm, node and cargo"
+nvm install stable
 brew install -q rust
-echo "install lunarvim"
+echo "Installing lunarvim"
 /bin/bash -c "$(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
 
 
+
+
 echo "[06] cp conf [.zshrc|.p10k.zsh|config.lua]"
-cp -n ~/dotfiles/conf/.zshrc ~
-cp -n ~/dotfiles/conf/.p10k.zsh ~
-cp -n ~/dotfiles/conf/config.lua ~/.config/lvim/
+cp -n ~/dotfiles/.zshrc ~
+cp -n ~/dotfiles/.p10k.zsh ~
+cp -n ~/dotfiles/config.lua ~/.config/lvim/
 echo "[07] done"
