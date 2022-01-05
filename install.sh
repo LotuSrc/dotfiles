@@ -31,7 +31,7 @@ function warning() {
 }
 
 function info() {
-  echo -e "${COLOR_BLUE}Infor: ${COLOR_NONE}$1"
+  echo -e "${COLOR_BLUE}Info: ${COLOR_NONE}$1"
 }
 
 function success() {
@@ -53,6 +53,13 @@ function setup_homebrew() {
 }
 
 
+test -f "~/.zprofile" && touch ~/.zprofile
+# if [[ ! -f "~/.zprofile" ]]
+# then
+#   touch ~/.zprofile
+# fi
+
+
 if [[ $OS =~ 'Darwin' ]]
 then
   echo "Installing homebrew"
@@ -62,7 +69,7 @@ then
   git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
   /bin/bash brew-install/install.sh
   rm -rf brew-install
-  test -r ~/.bash_profile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+  # test -r ~/.bash_profile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
   test -r ~/.zprofile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 
   test -r ~/.zprofile && echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"' >> ~/.zprofile
@@ -78,10 +85,14 @@ then
   rm -rf brew-install
   test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
   test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  # 如果不修改默认shell则需要写入bash_profile或者profile
+  # zsh变量需要
   test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_profile
   test -r ~/.profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
   test -r ~/.zprofile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zprofile
 
+  test -r ~/.bash_profile && 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"' >> ~/.bash_profile
+  test -r ~/.profile && 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"' >> ~/.profile
   test -r ~/.zprofile && echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"' >> ~/.zprofile
 
 else
@@ -96,9 +107,13 @@ brew install -q glibc
 echo "Installing zsh"
 brew install -q zsh
 # 非root用户设置zsh为默认shell
-test -r ~/.bash_profile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.bash_profile
-test -r ~/.profile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.profile
-test -r ~/.zprofile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.zprofile
+if [[ $OS =~ 'Linux' ]]
+then
+  # 这种方式bash的profile仍然有效
+  test -r ~/.bash_profile && echo -e "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.bash_profile
+  test -r ~/.profile && echo -e "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.profile
+fi
+# test -r ~/.zprofile && echo "export SHELL=\`which zsh\`\n[ -z "\$ZSH_VERSION" ] && exec "\$SHELL" -l" >> ~/.zprofile
 
 
 echo "Installing ohmyzsh"
@@ -119,16 +134,18 @@ echo "Installing neovim"
 brew install -q neovim
 echo "Installing nvm"
 brew install -q nvm
+# 安装完找不到命令
+# 需要设置环境变量
 mkdir $HOME/.nvm
 export NVM_DIR="$HOME/.nvm"
 eval "[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"" # This loads nvm
 eval "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"" # This loads nvm bash_completion
-test -r ~/.bash_profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bash_profile
-test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.bash_profile
-test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.bash_profile
-test -r ~/.profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.profile
-test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.profile
-test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.profile
+# test -r ~/.bash_profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bash_profile
+# test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.bash_profile
+# test -r ~/.bash_profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.bash_profile
+# test -r ~/.profile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.profile
+# test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.profile
+# test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.profile
 test -r ~/.zprofile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zprofile
 test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.zprofile
 test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.zprofile
@@ -142,7 +159,7 @@ echo "Installing lunarvim"
 
 
 echo "[06] cp conf [.zshrc|.p10k.zsh|config.lua]"
-cp -n ~/dotfiles/.zshrc ~
-cp -n ~/dotfiles/.p10k.zsh ~
-cp -n ~/dotfiles/config.lua ~/.config/lvim/
+cp ~/dotfiles/.zshrc ~
+cp ~/dotfiles/.p10k.zsh ~
+cp ~/dotfiles/config.lua ~/.config/lvim/
 echo "[07] done"
