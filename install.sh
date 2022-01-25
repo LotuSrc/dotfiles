@@ -152,6 +152,10 @@ test -r ~/.zprofile && echo "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.
 echo "Installing dependencies for lunarvim: npm, node and cargo"
 nvm install node
 brew install -q rust
+
+pip install pip -U
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
 echo "Installing lunarvim"
 /bin/bash -c "$(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
 
