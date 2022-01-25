@@ -150,11 +150,10 @@ test -r ~/.zprofile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zprofile
 test -r ~/.zprofile && echo "[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"" >> ~/.zprofile
 test -r ~/.zprofile && echo "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"" >> ~/.zprofile
 echo "Installing dependencies for lunarvim: npm, node and cargo"
-nvm install stable
+nvm install node
 brew install -q rust
 echo "Installing lunarvim"
 /bin/bash -c "$(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
-
 
 
 
