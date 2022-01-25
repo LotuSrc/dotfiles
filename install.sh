@@ -147,8 +147,8 @@ eval "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew 
 # test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.profile
 # test -r ~/.profile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.profile
 test -r ~/.zprofile && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zprofile
-test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"\"" >> ~/.zprofile
-test -r ~/.zprofile && echo "eval \"[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"\"" >> ~/.zprofile
+test -r ~/.zprofile && echo "[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"" >> ~/.zprofile
+test -r ~/.zprofile && echo "[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"" >> ~/.zprofile
 echo "Installing dependencies for lunarvim: npm, node and cargo"
 nvm install stable
 brew install -q rust
