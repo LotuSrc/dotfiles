@@ -1,12 +1,4 @@
 #/bin/bash
-#set -x
-
-OS=centos
-MIRROR=N
-PROXY=N
-PROXY_URL=https://ghproxy.com
-
-OS=`uname -a`
 
 COLOR_GRAY="\033[1;38;5;243m"
 COLOR_BLUE="\033[1;34m"
@@ -67,3 +59,5 @@ function setup_zsh() {
     brew install -q zsh
 }
 
+setup_homebrew()
+setup_zsh()
