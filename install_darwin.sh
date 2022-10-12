@@ -57,7 +57,7 @@ function setup_homebrew() {
   brew install -q autojump
   brew install -q miniconda
 
-  success "Finished"
+  success "Done."
 }
 
 function setup_zsh() {
@@ -77,7 +77,7 @@ function setup_zsh() {
     chsh -s /usr/local/bin/zsh
   fi
 
-  success "Finished"
+  success "Done."
 }
 
 setup_homebrew
