@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
-sh {{ joinPath .chezmoi.sourceDir "install_linux.sh" -}}
+sh {{ joinPath .chezmoi.sourceDir "install_linux.sh" }}
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-sh {{ joinPath .chezmoi.sourceDir "install_darwin.sh" -}}
-{{ end -}}
+sh {{ joinPath .chezmoi.sourceDir "install_darwin.sh" }}
+{{ end }}

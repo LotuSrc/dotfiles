@@ -49,13 +49,14 @@ function setup_homebrew() {
 
     # m1需要这一步
     if [[ `uname -a` =~ "arm64" ]]; then
-      test -r ~/.bash_profile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
-      test -r ~/.zprofile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+      # 不再判断是否存在.zprofile
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     fi
   fi
 
   brew install -q autojump
   brew install -q miniconda
+  brew install -q --cask fig
 
   success "Done."
 }
