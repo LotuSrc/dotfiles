@@ -36,7 +36,7 @@ function version_gt() {
 
 function setup_homebrew() {
   title "Setting up Homebrew"
-
+ 
   if test ! "$(command -v brew)"; then
     info "Homebrew not installed. Installing."
     xcode-select --install
@@ -45,6 +45,8 @@ function setup_homebrew() {
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
     # brew 4.0开始可以不加core仓库的环境变量
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+    # brew install pypi包使用镜像
+    export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
     git clone --quiet --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
     /bin/bash brew-install/install.sh
     rm -rf brew-install
