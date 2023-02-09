@@ -21,6 +21,14 @@
     url = "https://ghproxy.com/https://github.com/romkatv/powerlevel10k/archive/v1.16.1.tar.gz"
     exact = true
     stripComponents = 1
+[".config/nvim"]
+    type = "git-repo"
+    url = "https://ghproxy.com/https://github.com/NvChad/NvChad.git"
+    refreshPeriod = "168h"
+[".config/nvim/lua/custom"]
+    type = "git-repo"
+    url = "https://ghproxy.com/https://github.com/LotuSrc/custom.nvim.git"
+    refreshPeriod = "168h"
 {{ if eq .chezmoi.os "darwin" }}
 ["Library/Fonts/MesloLGS NF Regular.ttf"]
     type = "file"
