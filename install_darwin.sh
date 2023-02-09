@@ -40,9 +40,11 @@ function setup_homebrew() {
   if test ! "$(command -v brew)"; then
     info "Homebrew not installed. Installing."
     xcode-select --install
-    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+    export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+    # brew 4.0开始可以不加core仓库的环境变量
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     git clone --quiet --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
     /bin/bash brew-install/install.sh
     rm -rf brew-install
@@ -53,7 +55,6 @@ function setup_homebrew() {
       echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     fi
   fi
-
   brew install -q autojump
   brew install -q miniconda
   brew install -q --cask fig
