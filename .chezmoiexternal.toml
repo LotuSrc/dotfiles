@@ -32,18 +32,18 @@
 {{ if eq .chezmoi.os "darwin" }}
 ["Library/Fonts/MesloLGS NF Regular.ttf"]
     type = "file"
-    url = "https://ghproxy.com/https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS NF Regular.ttf"
+    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Regular.ttf"
     refreshPeriod = "168h"
 ["Library/Fonts/MesloLGS NF Bold.ttf"]
     type = "file"
-    url = "https://ghproxy.com/https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS NF Bold.ttf"
+    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Bold.ttf"
     refreshPeriod = "168h"
 ["Library/Fonts/MesloLGS NF Italic.ttf"]
     type = "file"
-    url = "https://ghproxy.com/https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS NF Italic.ttf"
+    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Italic.ttf"
     refreshPeriod = "168h"
 ["Library/Fonts/MesloLGS NF Bold Italic.ttf"]
     type = "file"
-    url = "https://ghproxy.com/https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS NF Bold Italic.ttf"
+    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Bold.ttf"
     refreshPeriod = "168h"
 {{ end }}
