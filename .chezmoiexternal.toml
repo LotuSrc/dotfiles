@@ -38,6 +38,6 @@
     refreshPeriod = "168h"
 ["Library/Fonts/MesloLGS NF Bold Italic.ttf"]
     type = "file"
-    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Bold.ttf"
+    url = "https://ghproxy.com/https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS NF Bold Italic.ttf"
     refreshPeriod = "168h"
 {{ end }}
