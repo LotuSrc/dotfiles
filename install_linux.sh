@@ -39,7 +39,6 @@ function setup_homebrew() {
  
   if test ! "$(command -v brew)"; then
     info "Homebrew not installed. Installing."
-    xcode-select --install
     export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -49,15 +48,12 @@ function setup_homebrew() {
     /bin/bash brew-install/install.sh
     rm -rf brew-install
 
-    # m1需要这一步
-    if [[ $(uname -a) =~ "arm64" ]]; then
-      # 不再判断是否存在.zprofile
-      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-    fi
+    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zprofile
   fi
   brew install -q autojump
   brew install -q miniconda
-  brew install -q --cask fig
 
   success "Done."
 }
